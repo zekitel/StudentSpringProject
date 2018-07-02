@@ -4,10 +4,7 @@ import com.zeki.Entity.Student;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,11 +13,16 @@ import java.util.Map;
 @Repository
 @Qualifier("postgresql")
 public class PostgreSQL implements StudentDao {
+    public static Connection connection() throws ClassNotFoundException, SQLException {
+        Class.forName("org.postgresql.Driver");
+        Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","29011995");
+        return conn;
 
+    }
 
     @Override
     public Collection<Student> getAllStudents() throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
         //PostgreSQL
         PreparedStatement preparedStatement = conn.prepareStatement("SELECT * from public.\"students\"");
 
@@ -44,7 +46,7 @@ public class PostgreSQL implements StudentDao {
 
     @Override
     public Student getStudentByID(int id) throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
         //PostgreSQL
         PreparedStatement preparedStatement = conn.prepareStatement("SELECT * from public.\"students\" where id=" + id);
 
@@ -65,7 +67,7 @@ public class PostgreSQL implements StudentDao {
 
     @Override
     public void removeStudentById(int id) throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
         //PostgreSQL
         PreparedStatement preparedStatement = conn.prepareStatement("DELETE from public.\"students\" where id=" + id);
 
@@ -76,7 +78,7 @@ public class PostgreSQL implements StudentDao {
     public void updateStudent(Student student) throws SQLException, ClassNotFoundException {
 
         System.out.println(student.getId() + "    " + student.getName() + "  " + student.getCourse());
-        Connection conn = Student.connection();
+        Connection conn = connection();
         //PostgreSQL
         PreparedStatement preparedStatement = conn.prepareStatement("UPDATE public.\"students\" SET id=?,name=?,course=? where id=" + student.getId());
 
@@ -88,7 +90,7 @@ public class PostgreSQL implements StudentDao {
 
     @Override
     public void insertStudentDao(Student student) throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
         //PostgreSQL
         PreparedStatement preparedStatement2 = conn.prepareStatement("SELECT * from public.\"students\" where id=" + student.getId());
 

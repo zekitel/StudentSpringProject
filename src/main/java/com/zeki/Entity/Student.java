@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.sql.*;
+
 
 
 @Entity
@@ -21,17 +21,6 @@ public class Student implements Serializable{
         this.id = id;
         this.name = name;
         this.course = course;
-    }
-    public Student(){
-
-    }
-    public static Connection connection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.postgresql.Driver");
-        //Class.forName("com.mysql.jdbc.Driver");
-        //Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/postgres","root","29011995");
-        Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","29011995");
-        return conn;
-
     }
     public int getId() {
 

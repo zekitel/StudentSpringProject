@@ -4,10 +4,7 @@ import com.zeki.Entity.Student;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,10 +14,18 @@ import java.util.Map;
 @Qualifier("mysql")
 public class MySQL implements StudentDao {
 
+    public static Connection connection() throws ClassNotFoundException, SQLException {
+        //Class.forName("org.postgresql.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/postgres","root","29011995");
+        //Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","29011995");
+        return conn;
+
+    }
 
     @Override
     public Collection<Student> getAllStudents() throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
 
         //MySQL
         PreparedStatement preparedStatement = conn.prepareStatement("SELECT * from students");
@@ -44,7 +49,7 @@ public class MySQL implements StudentDao {
 
     @Override
     public Student getStudentByID(int id) throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
 
         //MySQL
         PreparedStatement preparedStatement = conn.prepareStatement("SELECT * from students where id=" + id);
@@ -66,7 +71,7 @@ public class MySQL implements StudentDao {
 
     @Override
     public void removeStudentById(int id) throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
 
         //Mysql
         PreparedStatement preparedStatement = conn.prepareStatement("DELETE from students where id=" + id);
@@ -77,7 +82,7 @@ public class MySQL implements StudentDao {
     public void updateStudent(Student student) throws SQLException, ClassNotFoundException {
 
         System.out.println(student.getId() + "    " + student.getName() + "  " + student.getCourse());
-        Connection conn = Student.connection();
+        Connection conn = connection();
 
         //MySQL
         PreparedStatement preparedStatement = conn.prepareStatement("UPDATE students SET id=?,name=?,course=? where id=" + student.getId());
@@ -89,7 +94,7 @@ public class MySQL implements StudentDao {
 
     @Override
     public void insertStudentDao(Student student) throws SQLException, ClassNotFoundException {
-        Connection conn = Student.connection();
+        Connection conn = connection();
 
         //MySQL
         PreparedStatement preparedStatement2 = conn.prepareStatement("SELECT * from students where id=" + student.getId());
