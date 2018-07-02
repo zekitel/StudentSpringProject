@@ -26,10 +26,10 @@ public class Student implements Serializable{
 
     }
     public static Connection connection() throws ClassNotFoundException, SQLException {
-        //Class.forName("org.postgresql.Driver");
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/postgres","root","29011995");
-        //Connection conn2=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","29011995");
+        Class.forName("org.postgresql.Driver");
+        //Class.forName("com.mysql.jdbc.Driver");
+        //Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/postgres","root","29011995");
+        Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","29011995");
         return conn;
 
     }
