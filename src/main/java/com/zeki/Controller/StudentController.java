@@ -39,7 +39,6 @@ public class StudentController {
 
     @RequestMapping(value = "/sil",method = RequestMethod.DELETE)
     public void deleteStudentById(@RequestParam(value="id") int id) throws SQLException, ClassNotFoundException {
-        System.out.println("deleteFUnc");
         studentService.removeStudentById(id);
     }
     @RequestMapping(value="/update",method = RequestMethod.POST)
