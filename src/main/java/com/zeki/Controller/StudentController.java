@@ -14,9 +14,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import javax.print.attribute.standard.Media;
-import javax.xml.ws.RequestWrapper;
-import java.awt.*;
+
 import java.sql.SQLException;
 import java.util.Collection;
 
