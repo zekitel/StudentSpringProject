@@ -36,7 +36,7 @@ public class StudentController {
     public Student getStudentById(@RequestParam(value = "id") int id) throws SQLException, ClassNotFoundException {
         return studentService.getStudentByID(id);
     }
-
+    //studentController
     @RequestMapping(value = "/sil",method = RequestMethod.DELETE)
     public void deleteStudentById(@RequestParam(value="id") int id) throws SQLException, ClassNotFoundException {
         studentService.removeStudentById(id);
